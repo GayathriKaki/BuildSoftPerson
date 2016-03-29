@@ -1,0 +1,99 @@
+﻿@model PagedList.IPagedList<BuildSoftPerson.Models.Person>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Build Soft - People Report";
+}
+
+<h2>Build Soft - People Report</h2>
+
+<div  ng-controller="homeController">
+
+    <table class="table">
+        <tr>
+            <td colspan="5">
+                <p>
+                    <input type="button" title="Increment"  name="Increment"  value="Increment Age" class="btn btn-primary" ng-click="IncrementAge();">
+                </p>
+                Select Race : @Html.DropDownList("RaceList", ViewBag.racesall as SelectList, new { onchange = "document.location.href = '/Home/GetListOfPeople/' + this.options[this.selectedIndex].value;" })
+            </td>
+        </tr>
+        
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Height</th>
+            <th>Race</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.height)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.race.raceName)
+                </td>
+            </tr>
+
+        }
+        <tr>
+            <td colspan="5">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                @Html.PagedListPager(Model, page => Url.Action("GetListOfPeople",
+    new { page, id = ViewBag.Id }))
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Summary    -    <a href="/Home/GetStatistics/">View Json File</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Number of People</td>
+                            <td>{{people.Count}}</td>
+                        </tr>
+                        <tr>
+                            <td>Min Age</td>
+                            <td>{{people.MinAge}}</td>
+                        </tr>
+                        <tr>
+                            <td>Max Age</td>
+                            <td>{{people.MaxAge}}</td>
+                        </tr>
+                        <tr>
+                            <td>Average Age</td>
+                            <td>{{people.AverageAge}}</td>
+                        </tr>
+
+
+                        <tr class="lead">
+                            <td>Race</td>
+                            <td>Count</td>
+                        </tr>
+
+                        <tr ng-repeat="data in people.Groups">
+                            <td>{{data.Race}}</td>
+                            <td>{{data.Count}}</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
