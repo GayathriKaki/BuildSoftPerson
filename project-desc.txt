@@ -1,0 +1,58 @@
+The project is a c# asp.net mvc website with Razor.
+There are 10000 people in the list generated randomly
+
+ public List<Person> GeneratePeople()
+       
+ {
+         
+   var count = 10000;
+            
+var people = new List<Person>();
+         
+Random rnd = new Random();
+  
+
+for (int i = 0; i < count; i++)
+            
+{
+                
+             
+var person = new Person();
+                
+person.Name = "Person #" + i.ToString();
+                
+person.Age = rnd.Next(1, 99);
+                
+person.height = race.height(person);
+                
+               
+people.Add(person);
+            
+}
+
+            
+return people;
+        
+}
+
+
+
+
+The following tasks are performed
+
+1.Update the class structure to implement the races Angles,Saxons,Jutes,Asians
+2.Calculating the Heght of the person based on formulas below
+
+For Angles ans Saxons, height=(1.5+(Age*0.45))
+
+Fo Jutes,Height=((age*1.6)/2)
+For Asians,Height=(1.7+((age+2)*0.23))
+3.Update the loop that creates people,so that it randomly creates different races of people.
+4.Write a loop to add 1 year to each person's age 
+
+5.Build a webpage that shows dropdown list of races,the page should reload to show all the people in the selected race whose age is even,ordered by age.
+
+6.Build basic API endpoint hat returns Json document with the information
+Number of people
+Avg,min,max age
+count of people in each race
